@@ -4,6 +4,7 @@ const navLinks = document.querySelectorAll(".nav a");
 const statNumbers = document.querySelectorAll(".count");
 const contactForm = document.querySelector(".contact-form");
 const sectionsToReveal = document.querySelectorAll(".section, .page-hero, .hero");
+const staggerTargets = ".card, .service-item, .feature-grid article, .stat, .industries span, .contact-form, .office";
 const themeToggle = document.getElementById("themeToggle");
 const siteHeader = document.querySelector(".site-header");
 
@@ -84,6 +85,11 @@ if (awardsSection) {
 
 sectionsToReveal.forEach((section) => {
   section.classList.add("reveal-item");
+  const children = section.querySelectorAll(staggerTargets);
+  children.forEach((child, index) => {
+    child.classList.add("reveal-child");
+    child.style.setProperty("--reveal-delay", `${Math.min(index * 70, 420)}ms`);
+  });
 });
 
 const revealObserver = new IntersectionObserver(
@@ -95,7 +101,7 @@ const revealObserver = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.12 }
+  { threshold: 0.14, rootMargin: "0px 0px -8% 0px" }
 );
 
 sectionsToReveal.forEach((section) => {
