@@ -313,13 +313,28 @@ body.theme-dark .menu-toggle span {
 
 .reveal-item {
   opacity: 0;
-  transform: translateY(44px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(36px);
+  transition: opacity 0.75s ease, transform 0.85s cubic-bezier(0.2, 0.65, 0.2, 1);
+  will-change: opacity, transform;
 }
 
 .reveal-item.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.reveal-child {
+  opacity: 0;
+  transform: translateY(24px) scale(0.985);
+  transition:
+    opacity 0.6s ease var(--reveal-delay, 0ms),
+    transform 0.72s cubic-bezier(0.2, 0.65, 0.2, 1) var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal-item.is-visible .reveal-child {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .section-link-wrap {
@@ -824,6 +839,12 @@ body.theme-dark .btn-ghost {
   .reveal-item {
     opacity: 1;
     transform: none;
+  }
+
+  .reveal-child {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 
   body::before,
